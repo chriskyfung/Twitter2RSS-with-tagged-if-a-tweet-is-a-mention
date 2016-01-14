@@ -1,1 +1,30 @@
-{"url": "https://docs.google.com/open?id=1sPBRkJyol3GYUxI-2Fn-54nVQlPTMYoM7pqv2aa2uGmqshbOJc8RNmsT", "doc_id": "1sPBRkJyol3GYUxI-2Fn-54nVQlPTMYoM7pqv2aa2uGmqshbOJc8RNmsT", "email": "chrisfung1125@gmail.com", "resource_id": "script:1sPBRkJyol3GYUxI-2Fn-54nVQlPTMYoM7pqv2aa2uGmqshbOJc8RNmsT"}
+
+/**        ==========================================         **/
+
+/**        T W I T T E R    R S S    F E E D S   v7.0         **/
+
+/**        ==========================================         **/
+
+/**        Modified by Chris Fung on 14/1/2016                **/
+
+/**        Written by Amit Agarwal on 07/30/2013              **/
+
+/**        Last updated on Nov 19, 2015 - @labnol             **/
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                          function Twitter_RSS(){return}function doGet(e){var a,widgetID=e.queryString?e.queryString:"362462751664263169";if(widgetID.match(/^\d+$/)){var b=CacheService.getScriptCache();var c="labnol"+widgetID;a=b.get(c);if(!a){a=getTweets_(widgetID);if(a.match(/xml/)){b.put(c,a,60)}}if(a.match(/xml/)){return ContentService.createTextOutput(a).setMimeType(ContentService.MimeType.XML)}}else{a="Please enter a valid Twitter Widget ID. For support, send an email to amit@labnol.org or tweet @labnol with the widgetID# "+widgetID}return ContentService.createTextOutput(a)}function getTweets_(a){try{var b,json,tweets,f,tweet,list,time,url,when,rss,heading,title,link,alltweets,permalink,permatitle,img;title="Twitter RSS Feed :: "+a;link="http://ctrlq.org/#"+a;url="https://cdn.syndication.twimg.com/widgets/timelines/"+a;b=UrlFetchApp.fetch(url,{muteHttpExceptions:true});json=JSON.parse(b.getContentText());if(!json||!json.body){return"Could not fetch the Twitter feed. Please retry after few minutes or send the link "+url+" to amit@labnol.org for support"}var c=json.body.replace(/\s+/gm," ");var d=ScriptApp.getService().getUrl()+"?"+a;rss='<?xml version="1.0"?><rss version="2.0">';rss+=' <channel><title>'+title+'</title>';rss+=' <link>'+link+'</link>';rss += ' <pubDate>' + new Date() + '</pubDate>';var f=new RegExp(/<li class.*?>(.*?)<\/p>/g);var g=new RegExp(/<a class="u-url permalink.*?href="(.*?)".*?data-datetime="(.*?)".*?<img class="u-photo avatar".*?data-src-1x="(.*?)".*?<span class="p-name.*?>(.*?)<\/span>.*?<span class="p-nickname".*?>(.*?)<\/span>.*?<p class="e-entry-title".*?>(.*)/);while((alltweets=f.exec(c))!==null){var h,url,date,desc,tweet=alltweets[1];if((h=g.exec(tweet))!==null){rss+="<item>";rss+=" <title>"+h[4]+" : "+h[5].replace(/<[^>]*>/g,"")+"</title>";rss+=" <pubDate>"+h[2]+"</pubDate>";rss+=" <guid>"+h[1]+"</guid>";rss+=" <link>"+h[1]+"</link>";rss+=" <author>"+h[4]+"</author>";if (h[6].search('data-scribe="element:mention"') == -1){var tag =" <tag>status</tag>";}else{var tag = " <tag>mention</tag>";};rss+=" <description><![CDATA[<a href=\""+h[1]+"?source=ctrlq.org\"><img style=\"padding-right:10px;float:left\" src=\""+h[3]+"\"></a> "+tag+h[6]+"]]></description>";rss+="</item>"}}rss+="</channel></rss>";return rss}catch(e){return"Could not fetch the Twitter feed. Please retry after few minutes or send the message - "+e.toString()+" "+url+" - to amit@labnol.org for support"}}
+                                                                                                                                                                                                                                                                                                                                                                                                                                          
+/**        ==========================================          **/
+
+/**        S U P P O R T   &   H E L P                         **/
+
+/**        ==========================================          **/
+
+/**        INSTRUCTIONS: http://www.labnol.org/?p=28149        **/
+
+/**        VIDEO TUTORIAL: http://youtu.be/BXLYIw-IU8I         **/
+
+/**        TWITTER: https://twitter.com/labnol                 **/
+
+/**        DISCOVERED A BUG? Email amit@labnol.org             **/
+
